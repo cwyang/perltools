@@ -74,13 +74,9 @@ for (;;) {
     my @output = `$cmd`;
     my $date = `date`;
     my %targets = filter_target(@output);
-    die "\u$progname stops monitoring <$prog_to_watch>"
+    die "\u$progname stops monitoring <$prog_to_watch>\n"
 	if getppid == 1;	# calling script dies
 
-    my $n = keys %targets;
-    print "$n high load (>= $threshold%) threads detected\n"
-	if $n > 0;
-    
     for my $tid (keys %procs) {
 	delete $procs{$tid} unless exists $targets{$tid} 
     }
@@ -90,6 +86,8 @@ for (;;) {
 	if (($dump_count{$tid} // 0) >= $max_num) {
 	    next;
 	}
+	print "thread $tid has high load (>= $threshold%)\n";
+    
 	if (++$procs{$tid} >= $start_at) {
 	    dump_gstack($targets{$tid}, $date, \@output, ++$dump_count{$tid});
 	    $dumped = 1;
