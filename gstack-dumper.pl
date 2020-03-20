@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 #
-# run_gstack: gstack dump for cpu consuming processes
+# gstack-dumper: gstack dump for cpu consuming processes
 # 20 Mar 2020
 # Chul-Woong Yang
 #
@@ -77,6 +77,10 @@ for (;;) {
     die "\u$progname stops monitoring <$prog_to_watch>"
 	if getppid == 1;	# calling script dies
 
+    my $n = keys %targets;
+    print "$n high load (>= $threshold%) threads detected\n"
+	if $n > 0;
+    
     for my $tid (keys %procs) {
 	delete $procs{$tid} unless exists $targets{$tid} 
     }
