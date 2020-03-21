@@ -8,6 +8,8 @@ use strict;
 use warnings;
 use Getopt::Long;
 
+$| = 1; # enable command buffering, that is line buffering.
+
 sub prog_exists {
     my $prog = shift;
     system("which $prog > /dev/null 2>&1") == 0;
