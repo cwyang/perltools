@@ -2,7 +2,7 @@
 #
 # gstack-dumper: gstack dump for cpu consuming processes
 # 20 Mar 2020
-# Chul-Woong Yang
+# Chul-Woong Yang <cwyang@{github,gmail}>
 #
 use strict;
 use warnings;
